@@ -1,0 +1,7 @@
+{
+  "name": "zhaanbingo-backend",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": { "start": "node server.js", "dev": "node --watch server.js" },
+  "dependencies": { "express": "^5.1.0", "socket.io": "^4.8.1" }
+}

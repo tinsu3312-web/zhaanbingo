@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: zhaanbingo
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
