@@ -35,3 +35,47 @@ header{background:#190044cc;border-bottom:1px solid #8e48ff;box-shadow:0 3px 20p
 
 /* Replace remaining white surfaces and keep every ticket square equal on phones. */
 .ticket-tray,.empty-slot,#game .game>.panel{background:#fff3bc}.pcard .card,.slot .card{grid-template-columns:repeat(5,minmax(0,1fr))}.pcard .cell,.slot .cell{width:100%;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center}.pcard .cell{padding:2px}.slot .cell{padding:1px}#game .board div{background:#fff7d3}.dark .ticket-tray,.dark .empty-slot,.dark #game .game>.panel{background:#453616}
+
+/* Live game: keep the live call and each player's ticket together without a blank middle area. */
+#game .play{
+  padding:18px;
+  display:grid;
+  grid-template-columns:minmax(145px,1fr) minmax(245px,350px);
+  grid-template-rows:auto auto 1fr;
+  align-items:start;
+  gap:10px 18px;
+  text-align:center;
+}
+#game .ball{
+  position:static;
+  grid-column:1;
+  grid-row:1;
+  margin:0 auto;
+}
+#game #msg{
+  position:static;
+  grid-column:1;
+  grid-row:2;
+  color:#f0e7ff;
+}
+#game .recent{
+  position:static;
+  grid-column:1;
+  grid-row:3;
+  margin:0;
+  min-height:0;
+}
+#game .cards{
+  grid-column:2;
+  grid-row:1 / span 3;
+  width:100%;
+  align-items:flex-start;
+}
+#game .card-loading{margin-top:0}
+@media(max-width:800px){
+  #game .play{padding:12px 8px;display:flex;flex-direction:column;align-items:stretch;gap:8px}
+  #game .ball{width:92px;height:92px;font-size:22px;margin:0 auto}
+  #game #msg{font-size:12px}
+  #game .recent{min-height:0}
+  #game .cards{width:100%}
+}
