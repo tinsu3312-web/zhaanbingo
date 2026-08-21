@@ -13,6 +13,7 @@ const BUY_SECONDS = Number(process.env.BUY_SECONDS || 20);
 const CALL_INTERVAL_MS = Number(process.env.CALL_INTERVAL_MS || 5000);
 const FIRST_BALL_DELAY_MS = Number(process.env.FIRST_BALL_DELAY_MS || 1200);
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || "";
+const AUTO_RESTART_AFTER_WIN = process.env.AUTO_RESTART_AFTER_WIN !== "false";
 const SEED_SOLD_TICKETS = [366, 367, 372, 388, 389, 398, 412, 414, 428, 429, 444, 448, 449, 450];
 
 const app = express();
@@ -83,7 +84,9 @@ function finishGame() {
   if (game.phase !== "playing") return;
   clearTimers(); game.phase = "finished"; emitState();
   io.emit("game_finished", { gameNumber: game.number, winners: game.winners });
-  nextRoundTimer = setTimeout(() => startBuying({ incrementGame: true }), 4000);
+  if (game.winners.length && AUTO_RESTART_AFTER_WIN) {
+    nextRoundTimer = setTimeout(() => startBuying({ incrementGame: true }), 4000);
+  }
 }
 function winningPattern(ticket) {
   const marked = ticket.numbers.map((value) => value === "FREE" || game.called.includes(value));
